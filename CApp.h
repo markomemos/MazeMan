@@ -5,13 +5,26 @@
 extern "C"
 #endif
 
-class CApp {
+#include "CEvent.h"
+
+class CApp : CEvent {
 
 private:
 
 	bool Running;
+	bool Draw;
+	int moveDirX;
+	int moveDirY;
+	int curPosX;
+	int curPosY;
 
-	SDL_Window* Surf_Display;
+	SDL_Window *sdlWindow;
+
+	SDL_Renderer *sdlRenderer;
+
+	SDL_Texture* testTexture;
+	SDL_Texture* bkgdTexture;
+	//SDL_Window* Surf_Display;
 
 public:
 
@@ -29,6 +42,13 @@ public:
 
 	void OnCleanup();
 
+	void OnExit();
+
+	void CApp::OnKeyDown(SDL_Event* Event);
+
+	SDL_Renderer* GetRenderer() {
+		return sdlRenderer;
+	}
 };
 
 #endif

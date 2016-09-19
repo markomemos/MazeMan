@@ -3,7 +3,10 @@
 CApp::CApp() {
 
 	Running = true;
-	Surf_Display = NULL;
+	Draw = true;
+	//Surf_Display = NULL;
+	testTexture = NULL;
+	bkgdTexture = NULL;
 
 }
 
