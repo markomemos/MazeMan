@@ -6,17 +6,34 @@ extern "C"
 #endif
 
 #include "CEvent.h"
+#include "stdio.h"
+#include <iostream>
+#include <vector>
+#include "CTile.h"
 
 class CApp : CEvent {
 
 private:
 
+	//should probably put these global vars into their own struct/class, then make those classes global. Less namespace pollution. Or at least put a "g" in front!
+
+	//loop flags
 	bool Running;
 	bool Draw;
+
+	//internal game vars
 	int moveDirX;
 	int moveDirY;
 	int curPosX;
 	int curPosY;
+
+	std::vector< std::vector<CTile> > map;//we should make this into char* or string?
+
+
+	//display vars
+	int displaySizeX;
+	int displaySizeY;
+
 
 	SDL_Window *sdlWindow;
 
@@ -25,6 +42,7 @@ private:
 	SDL_Texture* testTexture;
 	SDL_Texture* bkgdTexture;
 	//SDL_Window* Surf_Display;
+	//SDL_Texture paaaants[20] = {};
 
 public:
 
@@ -32,7 +50,10 @@ public:
 
 	int OnExecute();
 
+	void DrawTexture(int textureId, int destX, int destY);
+
 	bool OnInit();
+	bool initMap();
 
 	void OnEvent(SDL_Event* Event);
 
