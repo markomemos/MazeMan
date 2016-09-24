@@ -13,13 +13,17 @@ void CApp::OnRender() {
 	//}
 	if(Draw) {
 		//erase the old box by drawing a black box overtop
-		SDL_Rect startRect;
-		startRect.x = (curPosX - moveDirX) * 32;//640 / 2 - 16;
-		startRect.y = (curPosY - moveDirY) * 32;//480 / 2 - 16;
-		startRect.w = 32;
-		startRect.h = 32;
-		SDL_RenderCopy(sdlRenderer, bkgdTexture, NULL, &startRect);
-		SDL_RenderPresent(sdlRenderer);
+		//SDL_Rect startRect;
+		//startRect.x = (curPosX - moveDirX) * 32;//640 / 2 - 16;
+		//startRect.y = (curPosY - moveDirY) * 32;//480 / 2 - 16;
+		//startRect.w = 32;
+		//startRect.h = 32;
+		//SDL_RenderCopy(sdlRenderer, bkgdTexture, NULL, &startRect);
+		//SDL_RenderPresent(sdlRenderer);
+
+		//redraw background behind us
+		CTile* tile = &(map.at(curPosY - moveDirY).at(curPosX - moveDirX));
+		DrawTexture(tile->GetTextureId(), tile->GetXPos(), tile->GetYPos());
 
 		//draw a new box
 		SDL_Rect destRect;
@@ -28,6 +32,7 @@ void CApp::OnRender() {
 		destRect.w = 32;
 		destRect.h = 32;
 		SDL_RenderCopy(sdlRenderer, testTexture, NULL, &destRect);
+
 		SDL_RenderPresent(sdlRenderer);
 	}
 	//reset

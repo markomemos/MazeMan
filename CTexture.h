@@ -2,7 +2,7 @@
 #define _CTEXTURE_H_
 
 #include <SDL.h>
-#include "Capp.h"
+#include "CApp.h"
 
 class CTexture {
 public:
