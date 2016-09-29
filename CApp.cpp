@@ -1,7 +1,7 @@
 #include "CApp.h"
 
 CApp::CApp() {
-
+	
 	//Should these guys be in "OnInit()"?
 	Running = true;
 	Draw = true;
@@ -11,23 +11,37 @@ CApp::CApp() {
 	displaySizeX = 640;
 	displaySizeY = 480;
 
+	tileSizeX = 32;
+	tileSizeY = 32;
 	//map.resize(displaySizeY / 32, std::vector<CTile>(displaySizeX / 32));
-
+	map.initMap(displaySizeX / tileSizeX, displaySizeY / tileSizeY);
 }
 
 void CApp::DrawTexture(int textureId, int destX, int destY) {
 	SDL_Rect destRect;
-	destRect.x = destX * 32;//640 
-	destRect.y = destY * 32;//480 
-	destRect.w = 32;//width of test texture
-	destRect.h = 32;//height of textTexture
+	destRect.x = destX * tileSizeX;//640 
+	destRect.y = destY * tileSizeY;//480 
+	destRect.w = tileSizeX;//width of test texture
+	destRect.h = tileSizeY;//height of textTexture
 
 	SDL_Rect srcRect;
-	srcRect.x = textureId % 10 * 32;//gives xpos of tile in tileset
-	srcRect.y = textureId / 10 * 32;//gives ypos of tile in tileset 
-	srcRect.w = 32;//width of tile id
-	srcRect.h = 32;//height of textTexture
+	srcRect.x = textureId % 10 * tileSizeX;//gives xpos of tile in tileset
+	srcRect.y = textureId / 10 * tileSizeY;//gives ypos of tile in tileset 
+	srcRect.w = tileSizeX;//width of tile id
+	srcRect.h = tileSizeY;//height of textTexture
 	SDL_RenderCopy(sdlRenderer, bkgdTexture, &srcRect, &destRect);
+}
+
+
+void CApp::DrawMap(CMap* map) {
+	std::vector<std::vector<CTile>> mMap = map->GetMap();
+	for (std::vector<std::vector<CTile>>::iterator itRow = mMap.begin(); itRow != mMap.end(); ++itRow) {
+		std::vector<CTile> row = *itRow;
+		for (std::vector<CTile>::iterator itCol = row.begin(); itCol != row.end(); ++itCol) {
+			CTile tile = *itCol;
+			DrawTexture(tile.GetTextureId(), tile.GetXPos(), tile.GetYPos());
+		}
+	}
 }
 
 int CApp::OnExecute() {

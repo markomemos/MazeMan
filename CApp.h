@@ -10,6 +10,7 @@ extern "C"
 #include <iostream>
 #include <vector>
 #include "CTile.h"
+#include "CMap.h"
 
 class CApp : CEvent {
 
@@ -27,12 +28,16 @@ private:
 	int curPosX;
 	int curPosY;
 
-	std::vector< std::vector<CTile> > map;//we should make this into char* or string?
-
+	//std::vector< std::vector<CTile> > map;//we should make this into char* or string?
 
 	//display vars
 	int displaySizeX;
 	int displaySizeY;
+
+	int tileSizeX;//in pixels
+	int tileSizeY;
+
+	CMap map;// = CMap(displaySizeX / tileSizeX, displaySizeY / tileSizeY);
 
 
 	SDL_Window *sdlWindow;
@@ -53,7 +58,8 @@ public:
 	void DrawTexture(int textureId, int destX, int destY);
 
 	bool OnInit();
-	bool initMap();
+	//bool initMap();
+	void DrawMap(CMap* map);
 
 	void OnEvent(SDL_Event* Event);
 

@@ -1,9 +1,11 @@
 #include "CApp.h"
+#include "CMaze.h"
 
 void CApp::OnLoop() {
 
 	if (Draw) {
-		CTile* tile = &(map.at(curPosY).at(curPosX));// current tile
+		std::vector<std::vector<CTile>> mapArray = map.GetMap();
+		CTile* tile = &(mapArray.at(curPosY).at(curPosX));// current tile
 
 		//zero movement if moving illegally
 		if ((moveDirX == 1 && !tile->IsPassable(0)) || (moveDirX == -1 && !tile->IsPassable(2))) {
@@ -35,6 +37,14 @@ void CApp::OnLoop() {
 		//}
 		if (!moveDirX && !moveDirY) {
 			Draw = false;
+		}
+
+		if (curPosX == (displaySizeX - 1) / tileSizeX && curPosY == (displaySizeY - 1) / tileSizeY) {
+			curPosX = 0;
+			curPosY = 0;
+			CMaze maze;
+			maze.makeMaze(map);
+			DrawMap(&map);
 		}
 	}
 

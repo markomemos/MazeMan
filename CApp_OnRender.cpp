@@ -22,15 +22,19 @@ void CApp::OnRender() {
 		//SDL_RenderPresent(sdlRenderer);
 
 		//redraw background behind us
-		CTile* tile = &(map.at(curPosY - moveDirY).at(curPosX - moveDirX));
-		DrawTexture(tile->GetTextureId(), tile->GetXPos(), tile->GetYPos());
+		if ((curPosY - moveDirY) >= 0 && (curPosY - moveDirY) < displaySizeY / tileSizeY
+			&& (curPosX - moveDirX) >= 0 && (curPosX - moveDirX) < displaySizeX / tileSizeX) {
+			std::vector<std::vector<CTile>> mapArray = map.GetMap();
+			CTile* tile = &(mapArray.at(curPosY - moveDirY).at(curPosX - moveDirX));
+			DrawTexture(tile->GetTextureId(), tile->GetXPos(), tile->GetYPos());
+		}
 
 		//draw a new box
 		SDL_Rect destRect;
-		destRect.x = curPosX*32;//640 / 2 - 16-32;
-		destRect.y = curPosY*32;//480 / 2 - 16 - 32;
-		destRect.w = 32;
-		destRect.h = 32;
+		destRect.x = curPosX*tileSizeX;//640 / 2 - 16-32;
+		destRect.y = curPosY*tileSizeY;//480 / 2 - 16 - 32;
+		destRect.w = tileSizeX;
+		destRect.h = tileSizeY;
 		SDL_RenderCopy(sdlRenderer, testTexture, NULL, &destRect);
 
 		SDL_RenderPresent(sdlRenderer);
