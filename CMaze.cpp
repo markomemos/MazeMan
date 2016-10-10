@@ -24,7 +24,8 @@ void CMaze::makeMaze(CMap &map){
 	int seedxpos = rand() % nTilesX;
 	int seedypos = rand() % nTilesY;
 
-	seedxpos = 2;
+	//seedxpos = 2;
+	//
 	seedypos = 2;
 
 	std::vector<CTile> potentialTiles;

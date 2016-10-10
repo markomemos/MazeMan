@@ -93,11 +93,11 @@ bool CApp::OnInit() {
 	SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(sdlRenderer);
 	SDL_RenderPresent(sdlRenderer);
-
-	if ((testTexture = CTexture::OnLoad("C:\\Users\\Mark\\Documents\\Visual Studio 2015\\Projects\\game1\\Resources\\test.bmp",this)) == NULL) {
+	
+	if ((testTexture = CTexture::OnLoad("C:\\Users\\Mark\\Documents\\Visual Studio 2015\\Projects\\game1\\Resources\\char.bmp",this)) == NULL) {
 		return false;
 	}
-	if ((bkgdTexture = CTexture::OnLoad("C:\\Users\\Mark\\Documents\\Visual Studio 2015\\Projects\\game1\\Resources\\bkgd.bmp", this)) == NULL) {
+	if ((bkgdTexture = CTexture::OnLoad("C:\\Users\\Mark\\Documents\\Visual Studio 2015\\Projects\\game1\\Resources\\bkgd_32.bmp", this)) == NULL) {
 		return false;
 	}
 
@@ -114,7 +114,11 @@ bool CApp::OnInit() {
 	curPosX = 0;//should range from 0-19. Multiply by 32 to get left pixel position of the box thing.
 	curPosY = 0;//should range from 0-14. Multiply by 32 to get top pixel position of the box thing.
 
-	//init the bkgd
+	//purely for fun, hide the map
+	//SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255);
+	//SDL_RenderClear(sdlRenderer);
+
+	//init the character
 	SDL_Rect destRect;
 	destRect.x = curPosX * tileSizeX;//640 / 2 - 16;
 	destRect.y = curPosY * tileSizeY;//480 / 2 - 16;

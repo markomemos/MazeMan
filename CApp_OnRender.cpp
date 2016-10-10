@@ -29,7 +29,15 @@ void CApp::OnRender() {
 			DrawTexture(tile->GetTextureId(), tile->GetXPos(), tile->GetYPos());
 		}
 
-		//draw a new box
+		//draw the background where we are?
+		bool drawCurTile = true;
+		if (drawCurTile) {
+			std::vector<std::vector<CTile>> mapArray = map.GetMap();
+			CTile* tile = &(mapArray.at(curPosY).at(curPosX));
+			DrawTexture(tile->GetTextureId(), tile->GetXPos(), tile->GetYPos());
+		}
+
+		//draw a new player character
 		SDL_Rect destRect;
 		destRect.x = curPosX*tileSizeX;//640 / 2 - 16-32;
 		destRect.y = curPosY*tileSizeY;//480 / 2 - 16 - 32;

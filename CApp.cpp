@@ -11,8 +11,12 @@ CApp::CApp() {
 	displaySizeX = 640;
 	displaySizeY = 480;
 
-	tileSizeX = 32;
-	tileSizeY = 32;
+	tileSizeX = 8;
+	tileSizeY = 8;
+
+	if (displaySizeX % tileSizeX != 0  || displaySizeY % tileSizeY != 0) {
+		throw std::exception("aaahahaha");
+	}
 	//map.resize(displaySizeY / 32, std::vector<CTile>(displaySizeX / 32));
 	map.initMap(displaySizeX / tileSizeX, displaySizeY / tileSizeY);
 }
@@ -25,10 +29,10 @@ void CApp::DrawTexture(int textureId, int destX, int destY) {
 	destRect.h = tileSizeY;//height of textTexture
 
 	SDL_Rect srcRect;
-	srcRect.x = textureId % 10 * tileSizeX;//gives xpos of tile in tileset
-	srcRect.y = textureId / 10 * tileSizeY;//gives ypos of tile in tileset 
-	srcRect.w = tileSizeX;//width of tile id
-	srcRect.h = tileSizeY;//height of textTexture
+	srcRect.x = textureId % 10 * 32;// tileSizeX;//gives xpos of tile in tileset
+	srcRect.y = textureId / 10 * 32;// tileSizeY;//gives ypos of tile in tileset 
+	srcRect.w = 32;// tileSizeX;//width of tile id
+	srcRect.h = 32;// tileSizeY;//height of textTexture
 	SDL_RenderCopy(sdlRenderer, bkgdTexture, &srcRect, &destRect);
 }
 

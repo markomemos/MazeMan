@@ -39,6 +39,7 @@ void CApp::OnLoop() {
 			Draw = false;
 		}
 
+		//If we reach the exit to the maze, reset maze
 		if (curPosX == (displaySizeX - 1) / tileSizeX && curPosY == (displaySizeY - 1) / tileSizeY) {
 			curPosX = 0;
 			curPosY = 0;
